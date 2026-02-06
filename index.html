@@ -1,49 +1,38 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Love ❤️</title>
-
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<title>For Dr. Anushka ❤️</title>
 
 <style>
 body{
 margin:0;
-font-family:'Poppins',sans-serif;
+padding:0;
+font-family: 'Segoe UI', sans-serif;
+text-align:center;
+background:linear-gradient(135deg,#ff9ecb,#ffcce6);
 overflow:hidden;
-background: linear-gradient(135deg,#ff9ecf,#ffcce6);
+color:#b30059;
+}
+
+.page{
+display:none;
+height:100vh;
+width:100%;
+padding:20px;
+box-sizing:border-box;
+}
+
+.active{
 display:flex;
+flex-direction:column;
 justify-content:center;
 align-items:center;
-height:100vh;
-text-align:center;
-}
-
-/* Floating hearts */
-.heart{
-position:fixed;
-color:rgba(255,0,100,0.3);
-font-size:20px;
-animation:float 6s linear infinite;
-}
-@keyframes float{
-0%{transform:translateY(100vh);opacity:1;}
-100%{transform:translateY(-10vh);opacity:0;}
-}
-
-.container{
-background:white;
-padding:30px;
-border-radius:20px;
-box-shadow:0 10px 40px rgba(0,0,0,0.2);
-max-width:350px;
-width:90%;
 }
 
 h1{
-color:#e60073;
-font-size:22px;
+font-size:28px;
+margin-bottom:15px;
 }
 
 button{
@@ -51,109 +40,113 @@ padding:12px 25px;
 margin:10px;
 border:none;
 border-radius:30px;
-font-size:16px;
+font-size:18px;
 cursor:pointer;
 transition:0.3s;
 }
 
-#yes{
-background:#ff4da6;
+#yesBtn{
+background:#ff0066;
 color:white;
 }
 
-#no{
-background:#eee;
+#noBtn{
+background:white;
+color:#ff0066;
+position:absolute;
 }
 
-button:hover{
-transform:scale(1.1);
-}
-
-/* Final Page */
-.finalPage{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background: linear-gradient(135deg,#ff9ecf,#ffcce6);
-display:none;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-color:white;
-padding:20px;
-}
-
-.finalPage img{
-width:90%;
-max-width:300px;
+img{
+max-width:90%;
 border-radius:20px;
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
-margin-bottom:20px;
+margin-top:15px;
+box-shadow:0 0 20px rgba(0,0,0,0.2);
 }
 
-.finalPage h2{
-font-size:24px;
-margin-bottom:10px;
-}
-
-.finalPage p{
+.quote{
+margin-top:15px;
+font-style:italic;
 font-size:16px;
 }
+
 </style>
 </head>
 
 <body>
 
-<div class="container" id="mainBox">
-<h1>💖 Dr. Anushka 💖<br>Will you be my Valentine? 💘</h1>
-<button id="yes">Yes ❤️</button>
-<button id="no">No 🙈</button>
+<!-- PAGE 1 -->
+<div class="page active" id="page1">
+<h1>❤️ Anushka ❤️</h1>
+<h2>Will you be my Valentine? 💖</h2>
+<button id="yesBtn">Yes 💘</button>
+<button id="noBtn">No 😜</button>
+<p class="quote">Every moment with you feels magical ✨</p>
 </div>
 
-<div class="finalPage" id="finalPage">
-<img src="photo1.jpg">
-<h2>Happy Valentine’s Bayko Day 💕</h2>
+<!-- PAGE 2 -->
+<div class="page" id="page2">
+<h1>Yayyyyy ❤️🔥</h1>
+<p>“Tere bina adhura hoon main,  
+Tu mile to pura ho jata hoon…  
+Har din sirf tera ho,  
+Bas yehi dua mangta hoon…” 💖</p>
+
+<img id="slideshow" src="photo1.jpg">
+
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="page3">
+<h1>Happy Valentine’s Bayko Day 💞</h1>
 <p>
-Every moment with you feels like a dream come true ❤️<br>
-You are my happiness, my peace, my forever 💖
+Tu meri dua, tu meri jaan,  
+Tu hi mera sabse pyara armaan 💕  
+Har janam me sirf tu hi mile,  
+Ye dil sirf tera hi naam le 💖
 </p>
+
+<img src="photo3.jpg">
+
 </div>
 
 <script>
-// Floating hearts
-for(let i=0;i<20;i++){
-let heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="❤";
-heart.style.left=Math.random()*100+"vw";
-heart.style.animationDuration=(3+Math.random()*3)+"s";
-document.body.appendChild(heart);
+
+let noBtn = document.getElementById("noBtn");
+let yesBtn = document.getElementById("yesBtn");
+
+let noTexts = ["Really? 😏","Nice Try 😜","Pakad ke dikha 😆","Soch lo 😝"];
+let index = 0;
+
+noBtn.addEventListener("click", function(){
+index = (index + 1) % noTexts.length;
+noBtn.innerText = noTexts[index];
+
+let x = Math.random() * (window.innerWidth - 100);
+let y = Math.random() * (window.innerHeight - 50);
+noBtn.style.left = x + "px";
+noBtn.style.top = y + "px";
+});
+
+yesBtn.addEventListener("click", function(){
+document.getElementById("page1").classList.remove("active");
+document.getElementById("page2").classList.add("active");
+startSlideshow();
+setTimeout(()=>{
+document.getElementById("page2").classList.remove("active");
+document.getElementById("page3").classList.add("active");
+},8000);
+});
+
+let photos = ["photo1.jpg","photo2.jpg","photo3.jpg"];
+let slideIndex = 0;
+
+function startSlideshow(){
+setInterval(()=>{
+slideIndex = (slideIndex + 1) % photos.length;
+document.getElementById("slideshow").src = photos[slideIndex];
+},2000);
 }
 
-// Yes click
-document.getElementById("yes").addEventListener("click",function(){
-
-confetti({
-particleCount:200,
-spread:120,
-origin:{y:0.6}
-});
-
-setTimeout(()=>{
-document.getElementById("mainBox").style.display="none";
-document.getElementById("finalPage").style.display="flex";
-},1000);
-
-});
-
-// No button funny move
-document.getElementById("no").addEventListener("mouseover",function(){
-this.style.position="absolute";
-this.style.top=Math.random()*80+"%";
-this.style.left=Math.random()*80+"%";
-});
 </script>
 
 </body>
