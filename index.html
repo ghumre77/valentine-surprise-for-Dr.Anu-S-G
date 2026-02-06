@@ -10,72 +10,91 @@ margin:0;
 padding:0;
 font-family:'Segoe UI',sans-serif;
 background:linear-gradient(135deg,#ff9ecb,#ffcce6);
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
+text-align:center;
 overflow:hidden;
 }
 
-/* Center Card */
-.card{
-background:white;
-width:90%;
-max-width:400px;
-padding:30px 20px;
-border-radius:25px;
-text-align:center;
-box-shadow:0 15px 40px rgba(0,0,0,0.2);
-position:relative;
-z-index:2;
+/* Main content */
+.container{
+margin-top:100px;
 }
 
 h1{
-color:#e6005c;
-font-size:28px;
+font-size:42px;
+color:#cc0033;
 margin-bottom:10px;
 }
 
 h2{
-color:#b30047;
-font-size:20px;
-margin-bottom:20px;
+font-size:34px;
+color:#990033;
+margin-top:0;
 }
 
-/* Buttons */
-button{
-padding:12px 28px;
-border:none;
-border-radius:30px;
-font-size:16px;
-cursor:pointer;
-margin:8px;
-transition:0.3s;
+.quote{
+margin-top:30px;
+font-style:italic;
+color:#cc0033;
+font-size:18px;
 }
 
+/* Yes Button */
 #yesBtn{
-background:#ff0066;
+margin-top:25px;
+padding:15px 45px;
+font-size:18px;
+border:none;
+border-radius:40px;
+background:linear-gradient(45deg,#ff0066,#ff4da6);
 color:white;
+cursor:pointer;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
 }
 
-#yesBtn:hover{
-transform:scale(1.08);
+/* Gift Box */
+.gift{
+display:none;
+margin-top:40px;
+font-size:80px;
+cursor:pointer;
+animation:shake 1s infinite alternate;
 }
 
-#noBtn{
-background:white;
-color:#ff0066;
+@keyframes shake{
+0%{transform:rotate(-5deg);}
+100%{transform:rotate(5deg);}
+}
+
+/* Photo */
+#photo{
+display:none;
+margin-top:30px;
+max-width:80%;
+border-radius:20px;
+box-shadow:0 15px 30px rgba(0,0,0,0.3);
+}
+
+/* Fireworks */
+.fire{
 position:absolute;
+width:6px;
+height:6px;
+border-radius:50%;
+animation:explode 1s ease-out forwards;
+}
+
+@keyframes explode{
+0%{transform:translate(0,0);opacity:1;}
+100%{transform:translate(var(--x),var(--y));opacity:0;}
 }
 
 /* Floating hearts */
 .heart{
 position:absolute;
 color:#ff4da6;
-font-size:18px;
+font-size:20px;
 animation:float 6s linear infinite;
-opacity:0.6;
-z-index:1;
+opacity:0.5;
 }
 
 @keyframes float{
@@ -83,51 +102,32 @@ z-index:1;
 100%{transform:translateY(-10vh);}
 }
 
-/* Firework particles */
-.fire{
-position:absolute;
-width:6px;
-height:6px;
-border-radius:50%;
-animation:explode 1.2s ease-out forwards;
-}
-
-@keyframes explode{
-0%{transform:scale(1);opacity:1;}
-100%{transform:scale(20);opacity:0;}
-}
-
 </style>
 </head>
-
 <body>
 
-<div class="card">
+<div class="container">
 <h1>❤️ Anushka ❤️</h1>
-<h2>Will you be my Valentine? 💖</h2>
-<button id="yesBtn">Yes 💕</button>
-<button id="noBtn">No 😜</button>
+<h2>Will you be my<br>Valentine? 💖</h2>
+
+<button id="yesBtn">Yes! 💕</button>
+
+<p class="quote">
+"Every moment with you feels like a dream come true..."
+</p>
+
+<div class="gift" id="gift">🎁</div>
+
+<img id="photo" src="photo.jpg">
 </div>
 
 <script>
 
 let yesBtn=document.getElementById("yesBtn");
-let noBtn=document.getElementById("noBtn");
+let gift=document.getElementById("gift");
+let photo=document.getElementById("photo");
 
-let noTexts=["Really? 😏","Nice Try 😜","Pakad ke dikha 😆","Soch lo 😝"];
-let index=0;
-
-noBtn.addEventListener("click",function(){
-index=(index+1)%noTexts.length;
-noBtn.innerText=noTexts[index];
-
-let x=Math.random()*(window.innerWidth-100);
-let y=Math.random()*(window.innerHeight-50);
-noBtn.style.left=x+"px";
-noBtn.style.top=y+"px";
-});
-
-/* Floating hearts background */
+/* Floating hearts */
 function createHeart(){
 let heart=document.createElement("div");
 heart.className="heart";
@@ -136,20 +136,42 @@ heart.style.left=Math.random()*100+"vw";
 document.body.appendChild(heart);
 setTimeout(()=>heart.remove(),6000);
 }
-setInterval(createHeart,800);
+setInterval(createHeart,900);
 
-/* Fireworks on YES */
+/* Yes Click */
 yesBtn.addEventListener("click",function(){
-for(let i=0;i<35;i++){
+launchFireworks();
+gift.style.display="block";
+});
+
+/* Gift Click */
+gift.addEventListener("click",function(){
+gift.style.display="none";
+photo.style.display="block";
+launchFireworks();
+});
+
+/* Real Fireworks Burst */
+function launchFireworks(){
+let centerX=window.innerWidth/2;
+let centerY=window.innerHeight/2;
+
+for(let i=0;i<40;i++){
 let fire=document.createElement("div");
 fire.className="fire";
 fire.style.background="hsl("+Math.random()*360+",100%,50%)";
-fire.style.left=Math.random()*100+"vw";
-fire.style.top=Math.random()*100+"vh";
+fire.style.left=centerX+"px";
+fire.style.top=centerY+"px";
+
+let angle=Math.random()*2*Math.PI;
+let radius=Math.random()*200+50;
+fire.style.setProperty('--x',Math.cos(angle)*radius+'px');
+fire.style.setProperty('--y',Math.sin(angle)*radius+'px');
+
 document.body.appendChild(fire);
-setTimeout(()=>fire.remove(),1200);
+setTimeout(()=>fire.remove(),1000);
 }
-});
+}
 
 </script>
 
