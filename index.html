@@ -2,53 +2,65 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Dr. Anushka ❤️</title>
+<title>For Anushka ❤️</title>
 
 <style>
+*{margin:0;padding:0;box-sizing:border-box;}
+
 body{
-margin:0;
-padding:0;
-font-family: 'Segoe UI', sans-serif;
-text-align:center;
-background:linear-gradient(135deg,#ff9ecb,#ffcce6);
+font-family:'Segoe UI',sans-serif;
 overflow:hidden;
-color:#b30059;
+background:linear-gradient(135deg,#ff9ecb,#ffcce6);
+color:white;
 }
 
+/* Pages */
 .page{
-display:none;
-height:100vh;
+position:absolute;
 width:100%;
-padding:20px;
-box-sizing:border-box;
-}
-
-.active{
+height:100vh;
 display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
+text-align:center;
+opacity:0;
+transition:opacity 1.2s ease;
 }
 
-h1{
-font-size:28px;
-margin-bottom:15px;
+.active{
+opacity:1;
+z-index:2;
+}
+
+/* Heartbeat */
+.heartbeat{
+font-size:42px;
+animation:beat 1.2s infinite;
+color:#ff0066;
+}
+
+@keyframes beat{
+0%,100%{transform:scale(1);}
+50%{transform:scale(1.15);}
 }
 
 button{
-padding:12px 25px;
-margin:10px;
+padding:14px 35px;
 border:none;
-border-radius:30px;
+border-radius:40px;
 font-size:18px;
 cursor:pointer;
+margin:10px;
 transition:0.3s;
 }
 
 #yesBtn{
-background:#ff0066;
+background:linear-gradient(45deg,#ff0066,#ff4da6);
 color:white;
 }
+
+#yesBtn:hover{transform:scale(1.1);}
 
 #noBtn{
 background:white;
@@ -56,95 +68,194 @@ color:#ff0066;
 position:absolute;
 }
 
-img{
-max-width:90%;
-border-radius:20px;
-margin-top:15px;
-box-shadow:0 0 20px rgba(0,0,0,0.2);
+/* Floating hearts */
+.heart{
+position:absolute;
+color:#ff4da6;
+animation:float 6s linear infinite;
+opacity:0.7;
 }
 
-.quote{
-margin-top:15px;
-font-style:italic;
-font-size:16px;
+@keyframes float{
+0%{transform:translateY(100vh);}
+100%{transform:translateY(-10vh);}
+}
+
+/* Images */
+img{
+max-width:85%;
+border-radius:20px;
+margin-top:20px;
+box-shadow:0 0 25px rgba(0,0,0,0.3);
+}
+
+/* Ring animation */
+.ring{
+font-size:60px;
+margin-top:20px;
+animation:ringMove 2s infinite alternate ease-in-out;
+}
+
+@keyframes ringMove{
+0%{transform:translateY(0);}
+100%{transform:translateY(-20px);}
+}
+
+/* Night sky */
+.night{
+background:radial-gradient(circle at bottom,#0f2027,#203a43,#000);
+}
+
+/* Firework particle */
+.fire{
+position:absolute;
+width:4px;
+height:4px;
+border-radius:50%;
+animation:explode 1.5s ease-out forwards;
+}
+
+@keyframes explode{
+0%{transform:scale(1);opacity:1;}
+100%{transform:scale(25);opacity:0;}
+}
+
+/* Countdown */
+#countdown{
+font-size:80px;
+color:white;
+}
+
+.finalScreen{
+background:black;
+font-size:50px;
+color:#ff4da6;
 }
 
 </style>
 </head>
-
 <body>
 
 <!-- PAGE 1 -->
 <div class="page active" id="page1">
-<h1>❤️ Anushka ❤️</h1>
+<h1 class="heartbeat">❤️ Anushka ❤️</h1>
 <h2>Will you be my Valentine? 💖</h2>
-<button id="yesBtn">Yes 💘</button>
+<button id="yesBtn">Yes 💕</button>
 <button id="noBtn">No 😜</button>
-<p class="quote">Every moment with you feels magical ✨</p>
+</div>
+
+<!-- COUNTDOWN PAGE -->
+<div class="page" id="countPage">
+<div id="countdown">3</div>
 </div>
 
 <!-- PAGE 2 -->
 <div class="page" id="page2">
 <h1>Yayyyyy ❤️🔥</h1>
-<p>“Tere bina adhura hoon main,  
-Tu mile to pura ho jata hoon…  
-Har din sirf tera ho,  
-Bas yehi dua mangta hoon…” 💖</p>
-
-<img id="slideshow" src="photo1.jpg">
-
+<p id="loveText"></p>
+<img src="photo1.jpg">
 </div>
 
 <!-- PAGE 3 -->
-<div class="page" id="page3">
-<h1>Happy Valentine’s Bayko Day 💞</h1>
-<p>
-Tu meri dua, tu meri jaan,  
-Tu hi mera sabse pyara armaan 💕  
-Har janam me sirf tu hi mile,  
-Ye dil sirf tera hi naam le 💖
-</p>
+<div class="page night" id="page3">
+<h1>Forever Mine 💞</h1>
+<p>Har janam me sirf tu hi mile ❤️</p>
+<img src="photo2.jpg">
+<div class="ring">💍</div>
+</div>
 
-<img src="photo3.jpg">
-
+<!-- FINAL GRAND SCREEN -->
+<div class="page finalScreen" id="finalPage">
+She said YES 💖
 </div>
 
 <script>
 
-let noBtn = document.getElementById("noBtn");
-let yesBtn = document.getElementById("yesBtn");
+let yesBtn=document.getElementById("yesBtn");
+let noBtn=document.getElementById("noBtn");
 
-let noTexts = ["Really? 😏","Nice Try 😜","Pakad ke dikha 😆","Soch lo 😝"];
-let index = 0;
+let noTexts=["Really? 😏","Nice Try 😜","Pakad ke dikha 😆","Soch lo 😝"];
+let index=0;
 
-noBtn.addEventListener("click", function(){
-index = (index + 1) % noTexts.length;
-noBtn.innerText = noTexts[index];
-
-let x = Math.random() * (window.innerWidth - 100);
-let y = Math.random() * (window.innerHeight - 50);
-noBtn.style.left = x + "px";
-noBtn.style.top = y + "px";
+noBtn.addEventListener("click",function(){
+index=(index+1)%noTexts.length;
+noBtn.innerText=noTexts[index];
+noBtn.style.left=Math.random()*80+"vw";
+noBtn.style.top=Math.random()*80+"vh";
 });
 
-yesBtn.addEventListener("click", function(){
-document.getElementById("page1").classList.remove("active");
-document.getElementById("page2").classList.add("active");
-startSlideshow();
+yesBtn.addEventListener("click",function(){
+switchPage("page1","countPage");
+startCountdown();
+});
+
+function switchPage(from,to){
+document.getElementById(from).classList.remove("active");
+document.getElementById(to).classList.add("active");
+}
+
+/* Countdown 3 sec */
+function startCountdown(){
+let count=3;
+let counter=document.getElementById("countdown");
+
+let interval=setInterval(()=>{
+count--;
+counter.innerText=count;
+if(count==0){
+clearInterval(interval);
+switchPage("countPage","page2");
+startTyping();
 setTimeout(()=>{
-document.getElementById("page2").classList.remove("active");
-document.getElementById("page3").classList.add("active");
-},8000);
-});
+switchPage("page2","page3");
+realFireworks();
+},7000);
+setTimeout(()=>{
+switchPage("page3","finalPage");
+},14000);
+}
+},1000);
+}
 
-let photos = ["photo1.jpg","photo2.jpg","photo3.jpg"];
-let slideIndex = 0;
+/* Typing Love Letter */
+function startTyping(){
+let text="Tere bina adhura hoon main... Tu mile to pura ho jata hoon. Har din sirf tera ho... 💖";
+let i=0;
+let speed=50;
+function type(){
+if(i<text.length){
+document.getElementById("loveText").innerHTML+=text.charAt(i);
+i++;
+setTimeout(type,speed);
+}
+}
+type();
+}
 
-function startSlideshow(){
+/* Floating hearts */
+function createHeart(){
+let heart=document.createElement("div");
+heart.className="heart";
+heart.innerHTML="💕";
+heart.style.left=Math.random()*100+"vw";
+document.body.appendChild(heart);
+setTimeout(()=>heart.remove(),6000);
+}
+setInterval(createHeart,800);
+
+/* Night sky fireworks */
+function realFireworks(){
 setInterval(()=>{
-slideIndex = (slideIndex + 1) % photos.length;
-document.getElementById("slideshow").src = photos[slideIndex];
-},2000);
+for(let i=0;i<25;i++){
+let f=document.createElement("div");
+f.className="fire";
+f.style.background="hsl("+Math.random()*360+",100%,70%)";
+f.style.left=Math.random()*100+"vw";
+f.style.top=Math.random()*60+"vh";
+document.body.appendChild(f);
+setTimeout(()=>f.remove(),1500);
+}
+},1500);
 }
 
 </script>
