@@ -5,62 +5,62 @@
 <title>For Anushka ❤️</title>
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
-
 body{
+margin:0;
+padding:0;
 font-family:'Segoe UI',sans-serif;
-overflow:hidden;
 background:linear-gradient(135deg,#ff9ecb,#ffcce6);
-color:white;
-}
-
-/* Pages */
-.page{
-position:absolute;
-width:100%;
-height:100vh;
 display:flex;
-flex-direction:column;
 justify-content:center;
 align-items:center;
-text-align:center;
-opacity:0;
-transition:opacity 1.2s ease;
+height:100vh;
+overflow:hidden;
 }
 
-.active{
-opacity:1;
+/* Center Card */
+.card{
+background:white;
+width:90%;
+max-width:400px;
+padding:30px 20px;
+border-radius:25px;
+text-align:center;
+box-shadow:0 15px 40px rgba(0,0,0,0.2);
+position:relative;
 z-index:2;
 }
 
-/* Heartbeat */
-.heartbeat{
-font-size:42px;
-animation:beat 1.2s infinite;
-color:#ff0066;
+h1{
+color:#e6005c;
+font-size:28px;
+margin-bottom:10px;
 }
 
-@keyframes beat{
-0%,100%{transform:scale(1);}
-50%{transform:scale(1.15);}
+h2{
+color:#b30047;
+font-size:20px;
+margin-bottom:20px;
 }
 
+/* Buttons */
 button{
-padding:14px 35px;
+padding:12px 28px;
 border:none;
-border-radius:40px;
-font-size:18px;
+border-radius:30px;
+font-size:16px;
 cursor:pointer;
-margin:10px;
+margin:8px;
 transition:0.3s;
 }
 
 #yesBtn{
-background:linear-gradient(45deg,#ff0066,#ff4da6);
+background:#ff0066;
 color:white;
 }
 
-#yesBtn:hover{transform:scale(1.1);}
+#yesBtn:hover{
+transform:scale(1.08);
+}
 
 #noBtn{
 background:white;
@@ -72,8 +72,10 @@ position:absolute;
 .heart{
 position:absolute;
 color:#ff4da6;
+font-size:18px;
 animation:float 6s linear infinite;
-opacity:0.7;
+opacity:0.6;
+z-index:1;
 }
 
 @keyframes float{
@@ -81,92 +83,30 @@ opacity:0.7;
 100%{transform:translateY(-10vh);}
 }
 
-/* Images */
-img{
-max-width:85%;
-border-radius:20px;
-margin-top:20px;
-box-shadow:0 0 25px rgba(0,0,0,0.3);
-}
-
-/* Ring animation */
-.ring{
-font-size:60px;
-margin-top:20px;
-animation:ringMove 2s infinite alternate ease-in-out;
-}
-
-@keyframes ringMove{
-0%{transform:translateY(0);}
-100%{transform:translateY(-20px);}
-}
-
-/* Night sky */
-.night{
-background:radial-gradient(circle at bottom,#0f2027,#203a43,#000);
-}
-
-/* Firework particle */
+/* Firework particles */
 .fire{
 position:absolute;
-width:4px;
-height:4px;
+width:6px;
+height:6px;
 border-radius:50%;
-animation:explode 1.5s ease-out forwards;
+animation:explode 1.2s ease-out forwards;
 }
 
 @keyframes explode{
 0%{transform:scale(1);opacity:1;}
-100%{transform:scale(25);opacity:0;}
-}
-
-/* Countdown */
-#countdown{
-font-size:80px;
-color:white;
-}
-
-.finalScreen{
-background:black;
-font-size:50px;
-color:#ff4da6;
+100%{transform:scale(20);opacity:0;}
 }
 
 </style>
 </head>
+
 <body>
 
-<!-- PAGE 1 -->
-<div class="page active" id="page1">
-<h1 class="heartbeat">❤️ Anushka ❤️</h1>
+<div class="card">
+<h1>❤️ Anushka ❤️</h1>
 <h2>Will you be my Valentine? 💖</h2>
 <button id="yesBtn">Yes 💕</button>
 <button id="noBtn">No 😜</button>
-</div>
-
-<!-- COUNTDOWN PAGE -->
-<div class="page" id="countPage">
-<div id="countdown">3</div>
-</div>
-
-<!-- PAGE 2 -->
-<div class="page" id="page2">
-<h1>Yayyyyy ❤️🔥</h1>
-<p id="loveText"></p>
-<img src="photo1.jpg">
-</div>
-
-<!-- PAGE 3 -->
-<div class="page night" id="page3">
-<h1>Forever Mine 💞</h1>
-<p>Har janam me sirf tu hi mile ❤️</p>
-<img src="photo2.jpg">
-<div class="ring">💍</div>
-</div>
-
-<!-- FINAL GRAND SCREEN -->
-<div class="page finalScreen" id="finalPage">
-She said YES 💖
 </div>
 
 <script>
@@ -180,59 +120,14 @@ let index=0;
 noBtn.addEventListener("click",function(){
 index=(index+1)%noTexts.length;
 noBtn.innerText=noTexts[index];
-noBtn.style.left=Math.random()*80+"vw";
-noBtn.style.top=Math.random()*80+"vh";
+
+let x=Math.random()*(window.innerWidth-100);
+let y=Math.random()*(window.innerHeight-50);
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
 });
 
-yesBtn.addEventListener("click",function(){
-switchPage("page1","countPage");
-startCountdown();
-});
-
-function switchPage(from,to){
-document.getElementById(from).classList.remove("active");
-document.getElementById(to).classList.add("active");
-}
-
-/* Countdown 3 sec */
-function startCountdown(){
-let count=3;
-let counter=document.getElementById("countdown");
-
-let interval=setInterval(()=>{
-count--;
-counter.innerText=count;
-if(count==0){
-clearInterval(interval);
-switchPage("countPage","page2");
-startTyping();
-setTimeout(()=>{
-switchPage("page2","page3");
-realFireworks();
-},7000);
-setTimeout(()=>{
-switchPage("page3","finalPage");
-},14000);
-}
-},1000);
-}
-
-/* Typing Love Letter */
-function startTyping(){
-let text="Tere bina adhura hoon main... Tu mile to pura ho jata hoon. Har din sirf tera ho... 💖";
-let i=0;
-let speed=50;
-function type(){
-if(i<text.length){
-document.getElementById("loveText").innerHTML+=text.charAt(i);
-i++;
-setTimeout(type,speed);
-}
-}
-type();
-}
-
-/* Floating hearts */
+/* Floating hearts background */
 function createHeart(){
 let heart=document.createElement("div");
 heart.className="heart";
@@ -243,20 +138,18 @@ setTimeout(()=>heart.remove(),6000);
 }
 setInterval(createHeart,800);
 
-/* Night sky fireworks */
-function realFireworks(){
-setInterval(()=>{
-for(let i=0;i<25;i++){
-let f=document.createElement("div");
-f.className="fire";
-f.style.background="hsl("+Math.random()*360+",100%,70%)";
-f.style.left=Math.random()*100+"vw";
-f.style.top=Math.random()*60+"vh";
-document.body.appendChild(f);
-setTimeout(()=>f.remove(),1500);
+/* Fireworks on YES */
+yesBtn.addEventListener("click",function(){
+for(let i=0;i<35;i++){
+let fire=document.createElement("div");
+fire.className="fire";
+fire.style.background="hsl("+Math.random()*360+",100%,50%)";
+fire.style.left=Math.random()*100+"vw";
+fire.style.top=Math.random()*100+"vh";
+document.body.appendChild(fire);
+setTimeout(()=>fire.remove(),1200);
 }
-},1500);
-}
+});
 
 </script>
 
