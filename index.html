@@ -10,7 +10,7 @@ body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background: #f8c8dc;
+  background: linear-gradient(135deg, #f8c8dc, #fbc2eb);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,31 +18,26 @@ body {
   overflow: hidden;
 }
 
-/* Card */
+/* Card Style */
 .card {
   background: white;
-  padding: 20px;
+  padding: 30px;
   border-radius: 20px;
   text-align: center;
-  width: 300px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  width: 320px;
+  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
   position: relative;
   z-index: 2;
 }
 
-.card img {
-  width: 100%;
-  border-radius: 15px;
-  margin-top: 10px;
-}
-
 button {
-  padding: 10px 20px;
-  margin: 10px;
+  padding: 10px 25px;
+  margin: 15px 10px 0 10px;
   border: none;
-  border-radius: 20px;
+  border-radius: 25px;
   cursor: pointer;
   font-size: 16px;
+  transition: 0.3s;
 }
 
 .yes {
@@ -50,16 +45,27 @@ button {
   color: white;
 }
 
+.yes:hover {
+  transform: scale(1.1);
+}
+
 .no {
   background: lightgray;
 }
 
-/* Hidden second page */
+/* Second Page */
 #secondPage {
   display: none;
   text-align: center;
   position: absolute;
   z-index: 2;
+}
+
+#secondPage img {
+  width: 280px;
+  border-radius: 20px;
+  margin-top: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
 }
 
 #secondPage h1 {
@@ -69,12 +75,12 @@ button {
   box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
-/* Floating hearts */
+/* Floating Hearts */
 .heart {
   position: absolute;
   bottom: -20px;
   font-size: 20px;
-  animation: floatUp 4s linear infinite;
+  animation: floatUp 5s linear infinite;
   opacity: 0.8;
 }
 
@@ -87,19 +93,18 @@ button {
 
 <body>
 
-<!-- First Page -->
+<!-- FIRST PAGE (NO PHOTO) -->
 <div class="card" id="firstPage">
-  <h3>Do you like me Dr. Anushka? 💕</h3>
-  <img src="photo1.jpg" alt="photo">
-  <div>
-    <button class="yes" onclick="showLove()">Yes 💖</button>
-    <button class="no">No 😢</button>
-  </div>
+  <h2>Dr. Anushka 💕</h2>
+  <p>Do you like me? 🥺</p>
+  <button class="yes" onclick="showLove()">Yes 💖</button>
+  <button class="no">No 😢</button>
 </div>
 
-<!-- Second Page -->
+<!-- SECOND PAGE (PHOTO HERE) -->
 <div id="secondPage">
-  <h1>Yayyyy ❤️<br><br>Happy Valentine’s Day Baykoooo 💕</h1>
+  <h1>Yayyyy ❤️<br>Happy Valentine’s Day Baykoooo 💕</h1>
+  <img src="photo1.jpg" alt="Our Photo">
 </div>
 
 <script>
@@ -115,12 +120,12 @@ function startHearts() {
     heart.classList.add("heart");
     heart.innerHTML = "💕";
     heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (15 + Math.random() * 20) + "px";
+    heart.style.fontSize = (15 + Math.random() * 25) + "px";
     document.body.appendChild(heart);
 
     setTimeout(() => {
       heart.remove();
-    }, 4000);
+    }, 5000);
 
   }, 300);
 }
