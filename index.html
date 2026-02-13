@@ -1,160 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For My Love ❤️</title>
-
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
-<style>
-body{
-margin:0;
-font-family:'Poppins',sans-serif;
-overflow:hidden;
-background: linear-gradient(135deg,#ff9ecf,#ffcce6);
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-text-align:center;
-}
-
-/* Floating hearts */
-.heart{
-position:fixed;
-color:rgba(255,0,100,0.3);
-font-size:20px;
-animation:float 6s linear infinite;
-}
-@keyframes float{
-0%{transform:translateY(100vh);opacity:1;}
-100%{transform:translateY(-10vh);opacity:0;}
-}
-
-.container{
-background:white;
-padding:30px;
-border-radius:20px;
-box-shadow:0 10px 40px rgba(0,0,0,0.2);
-max-width:350px;
-width:90%;
-}
-
-h1{
-color:#e60073;
-font-size:22px;
-}
-
-button{
-padding:12px 25px;
-margin:10px;
-border:none;
-border-radius:30px;
-font-size:16px;
-cursor:pointer;
-transition:0.3s;
-}
-
-#yes{
-background:#ff4da6;
-color:white;
-}
-
-#no{
-background:#eee;
-}
-
-button:hover{
-transform:scale(1.1);
-}
-
-/* Final Page */
-.finalPage{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background: linear-gradient(135deg,#ff9ecf,#ffcce6);
-display:none;
-flex-direction:column;
-justify-content:center;
-align-items:center;
-color:white;
-padding:20px;
-}
-
-.finalPage img{
-width:90%;
-max-width:300px;
-border-radius:20px;
-box-shadow:0 10px 30px rgba(0,0,0,0.3);
-margin-bottom:20px;
-}
-
-.finalPage h2{
-font-size:24px;
-margin-bottom:10px;
-}
-
-.finalPage p{
-font-size:16px;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Proposal for Anushka</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #ffe6f2;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            overflow: hidden;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #e91e63;
+        }
+        .photo {
+            margin: 20px 0;
+        }
+        .photo img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+        .dialogue {
+            font-size: 18px;
+            margin: 20px 0;
+            color: #ad1457;
+        }
+        .buttons {
+            margin: 20px 0;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #yes {
+            background-color: #4caf50;
+            color: white;
+        }
+        #no {
+            background-color: #f44336;
+            color: white;
+        }
+        .hidden {
+            display: none;
+        }
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            animation: float 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100px) rotate(360deg); opacity: 0; }
+        }
+        .color-picker {
+            margin: 20px 0;
+        }
+        .color-picker label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .color-picker input {
+            width: 100px;
+        }
+        .upload {
+            margin: 20px 0;
+        }
+        .upload input {
+            display: block;
+            margin: 10px auto;
+        }
+    </style>
 </head>
-
 <body>
+    <div class="container">
+        <h1>Happy Valentine's Day, Anushka! 💕</h1>
+        <div class="photo">
+            <img src="photo1.jpg" alt="Our Photo">
+        </div>
+        <div class="dialogue">
+            "Anushka, you are the light of my life, the beat in my heart, and the smile on my face. Will you be my Valentine forever?"
+        </div>
+        <div class="color-picker">
+            <label for="bg-color">Pick Background Color:</label>
+            <input type="color" id="bg-color" value="#ffe6f2">
+        </div>
+        <div class="upload">
+            <label>Upload a Photo:</label>
+            <input type="file" id="photo-upload" accept="image/*">
+            <img id="uploaded-photo" class="hidden" alt="Uploaded Photo">
+        </div>
+        <div class="buttons">
+            <button id="yes">Yes 💖</button>
+            <button id="no">No 😢</button>
+        </div>
+        <div id="after-yes" class="hidden">
+            <h2>Yay! I love you, Anushka! Here's our special photo:</h2>
+            <img src="our_special_photo.jpg" alt="Our Special Photo" style="max-width: 100%; height: auto; border-radius: 10px;">
+        </div>
+    </div>
 
-<div class="container" id="mainBox">
-<h1>💖 Dr. Anushka 💖<br>Will you be my Valentine? 💘</h1>
-<button id="yes">Yes ❤️</button>
-<button id="no">No 🙈</button>
-</div>
+    <script>
+        // Flying hearts
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.textContent = '💕';
+            heart.style.left = Math.random() * 100 + 'vw';
+            heart.style.animationDelay = Math.random() * 2 + 's';
+            document.body.appendChild(heart);
+            setTimeout(() => {
+                heart.remove();
+            }, 3000);
+        }
+        setInterval(createHeart, 500);
 
-<div class="finalPage" id="finalPage">
-<img src="photo1.jpg">
-<h2>Happy Valentine’s Bayko Day 💕</h2>
-<p>
-Every moment with you feels like a dream come true ❤️<br>
-You are my happiness, my peace, my forever 💖
-</p>
-</div>
+        // Color picker
+        document.getElementById('bg-color').addEventListener('input', function() {
+            document.body.style.backgroundColor = this.value;
+        });
 
-<script>
-// Floating hearts
-for(let i=0;i<20;i++){
-let heart=document.createElement("div");
-heart.className="heart";
-heart.innerHTML="❤";
-heart.style.left=Math.random()*100+"vw";
-heart.style.animationDuration=(3+Math.random()*3)+"s";
-document.body.appendChild(heart);
-}
+        // Photo upload
+        document.getElementById('photo-upload').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.getElementById('uploaded-photo');
+                    img.src = e.target.result;
+                    img.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
 
-// Yes click
-document.getElementById("yes").addEventListener("click",function(){
-
-confetti({
-particleCount:200,
-spread:120,
-origin:{y:0.6}
-});
-
-setTimeout(()=>{
-document.getElementById("mainBox").style.display="none";
-document.getElementById("finalPage").style.display="flex";
-},1000);
-
-});
-
-// No button funny move
-document.getElementById("no").addEventListener("mouseover",function(){
-this.style.position="absolute";
-this.style.top=Math.random()*80+"%";
-this.style.left=Math.random()*80+"%";
-});
-</script>
-
+        // Yes/No buttons
+        document.getElementById('yes').addEventListener('click', function() {
+            document.querySelector('.container').innerHTML = document.getElementById('after-yes').innerHTML;
+        });
+        document.getElementById('no').addEventListener('click', function() {
+            alert("Oh no! Please reconsider? 😢");
+        });
+    </script>
 </body>
 </html>
