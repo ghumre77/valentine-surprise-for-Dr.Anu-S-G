@@ -1,128 +1,129 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>For Dr. Anushka ❤️</title>
 
 <style>
-body{
-  margin:0;
+body {
+  margin: 0;
+  padding: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg,#ff9ecf,#ffd6e7);
-  overflow:hidden;
-  text-align:center;
+  background: #f8c8dc;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  overflow: hidden;
 }
 
-/* Hide only second page by default */
-#page2{
-  display:none;
+/* Card */
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+  width: 300px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 2;
 }
 
-.container{
-  height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+.card img {
+  width: 100%;
+  border-radius: 15px;
+  margin-top: 10px;
 }
 
-.card{
-  background:white;
-  padding:25px;
-  border-radius:25px;
-  width:90%;
-  max-width:360px;
-  box-shadow:0 15px 35px rgba(0,0,0,0.15);
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
 }
 
-h1{
-  color:#e91e63;
+.yes {
+  background: hotpink;
+  color: white;
 }
 
-img{
-  width:100%;
-  border-radius:20px;
-  margin:15px 0;
+.no {
+  background: lightgray;
 }
 
-button{
-  padding:12px 28px;
-  border:none;
-  border-radius:30px;
-  font-size:16px;
-  margin:10px;
-  cursor:pointer;
+/* Hidden second page */
+#secondPage {
+  display: none;
+  text-align: center;
+  position: absolute;
+  z-index: 2;
 }
 
-#yes{
-  background:#ff4081;
-  color:white;
-}
-
-#no{
-  background:#eee;
+#secondPage h1 {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
 }
 
 /* Floating hearts */
-.heart{
-  position:fixed;
-  bottom:-20px;
-  font-size:20px;
-  animation: floatUp linear forwards;
+.heart {
+  position: absolute;
+  bottom: -20px;
+  font-size: 20px;
+  animation: floatUp 4s linear infinite;
+  opacity: 0.8;
 }
 
-@keyframes floatUp{
-  from{transform:translateY(0); opacity:1;}
-  to{transform:translateY(-100vh); opacity:0;}
+@keyframes floatUp {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-100vh); opacity: 0; }
 }
 </style>
 </head>
 
 <body>
 
-<!-- PAGE 1 -->
-<div id="page1" class="container">
-  <div class="card">
-    <h1>❤️ Dr. Anushka ❤️</h1>
-    <h3>Will you be my forever Valentine? 💕</h3>
-    <img src="photo1.jpg">
-    <button id="yes">Yes 💖</button>
-    <button id="no">No 😢</button>
+<!-- First Page -->
+<div class="card" id="firstPage">
+  <h3>Do you like me Dr. Anushka? 💕</h3>
+  <img src="photo1.jpg" alt="photo">
+  <div>
+    <button class="yes" onclick="showLove()">Yes 💖</button>
+    <button class="no">No 😢</button>
   </div>
 </div>
 
-<!-- PAGE 2 -->
-<div id="page2" class="container">
-  <div class="card">
-    <h1>💖 Happy Valentine’s Day Baykoooo 💖</h1>
-    <p>You are my heart, my happiness, my everything ❤️</p>
-    <img src="photo1.jpg">
-  </div>
+<!-- Second Page -->
+<div id="secondPage">
+  <h1>Yayyyy ❤️<br><br>Happy Valentine’s Day Baykoooo 💕</h1>
 </div>
 
 <script>
-
-/* Floating hearts */
-function createHeart(){
-  const heart=document.createElement("div");
-  heart.className="heart";
-  heart.innerHTML="💕";
-  heart.style.left=Math.random()*100+"vw";
-  heart.style.animationDuration=(Math.random()*2+3)+"s";
-  document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),5000);
+function showLove() {
+  document.getElementById("firstPage").style.display = "none";
+  document.getElementById("secondPage").style.display = "block";
+  startHearts();
 }
-setInterval(createHeart,400);
 
-/* Button logic */
-document.getElementById("yes").onclick=function(){
-  document.getElementById("page1").style.display="none";
-  document.getElementById("page2").style.display="flex";
-};
+function startHearts() {
+  setInterval(() => {
+    let heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💕";
+    heart.style.left = Math.random() * 100 + "vw";
+    heart.style.fontSize = (15 + Math.random() * 20) + "px";
+    document.body.appendChild(heart);
 
-document.getElementById("no").onclick=function(){
-  alert("Arey soch lo fir se 😅❤️");
-};
+    setTimeout(() => {
+      heart.remove();
+    }, 4000);
 
+  }, 300);
+}
 </script>
 
 </body>
