@@ -8,7 +8,7 @@
 body{
   margin:0;
   font-family: Arial, sans-serif;
-  background:#ffd6e7;
+  background: linear-gradient(135deg,#ff9ecf,#ffd6e7);
   overflow:hidden;
   text-align:center;
 }
@@ -18,7 +18,6 @@ body{
   display:none;
   height:100vh;
   display:flex;
-  flex-direction:column;
   justify-content:center;
   align-items:center;
 }
@@ -29,26 +28,37 @@ body{
 
 .card{
   background:white;
-  padding:20px;
-  border-radius:20px;
+  padding:25px;
+  border-radius:25px;
   width:90%;
-  max-width:350px;
-  box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  max-width:360px;
+  box-shadow:0 15px 35px rgba(0,0,0,0.15);
+  animation: pop 0.6s ease;
+}
+
+@keyframes pop{
+  from{transform:scale(0.8); opacity:0;}
+  to{transform:scale(1); opacity:1;}
+}
+
+h1{
+  color:#e91e63;
 }
 
 img{
   width:100%;
-  border-radius:15px;
+  border-radius:20px;
   margin:15px 0;
 }
 
 button{
-  padding:10px 25px;
+  padding:12px 28px;
   border:none;
-  border-radius:25px;
+  border-radius:30px;
   font-size:16px;
   margin:10px;
   cursor:pointer;
+  transition:0.3s;
 }
 
 #yes{
@@ -56,8 +66,12 @@ button{
   color:white;
 }
 
+#yes:hover{
+  transform:scale(1.1);
+}
+
 #no{
-  background:#ddd;
+  background:#eee;
 }
 
 /* Floating Hearts */
@@ -65,12 +79,12 @@ button{
   position:fixed;
   bottom:-20px;
   font-size:20px;
-  animation: floatUp 4s linear infinite;
+  animation: floatUp linear forwards;
 }
 
 @keyframes floatUp{
-  0%{transform:translateY(0); opacity:1;}
-  100%{transform:translateY(-100vh); opacity:0;}
+  from{transform:translateY(0); opacity:1;}
+  to{transform:translateY(-100vh); opacity:0;}
 }
 </style>
 </head>
@@ -80,10 +94,10 @@ button{
 <!-- PAGE 1 -->
 <div id="page1" class="page active">
   <div class="card">
-    <h2>❤️ Dr. Anushka ❤️</h2>
-    <h3>Will you be my Valentine? 💖</h3>
+    <h1>❤️ Dr. Anushka ❤️</h1>
+    <h3>Will you be my forever Valentine? 💕</h3>
     <img src="photo1.jpg">
-    <button id="yes">Yes 💕</button>
+    <button id="yes">Yes 💖</button>
     <button id="no">No 😢</button>
   </div>
 </div>
@@ -91,15 +105,15 @@ button{
 <!-- PAGE 2 -->
 <div id="page2" class="page">
   <div class="card">
-    <h2>Yayyyy Dr. Anushka ❤️</h2>
-    <p>You made my day 💕</p>
+    <h1>💖 Happy Valentine’s Day Baykoooo 💖</h1>
+    <p>You are my heart, my happiness, my everything ❤️</p>
     <img src="photo1.jpg">
   </div>
 </div>
 
 <script>
 
-/* Floating Hearts continuously */
+/* Floating hearts continuously */
 function createHeart(){
   const heart=document.createElement("div");
   heart.className="heart";
@@ -107,18 +121,18 @@ function createHeart(){
   heart.style.left=Math.random()*100+"vw";
   heart.style.animationDuration=(Math.random()*2+3)+"s";
   document.body.appendChild(heart);
-  setTimeout(()=>heart.remove(),4000);
+  setTimeout(()=>heart.remove(),5000);
 }
-setInterval(createHeart,500);
+setInterval(createHeart,400);
 
-/* Button Actions */
+/* Buttons */
 document.getElementById("yes").onclick=function(){
   document.getElementById("page1").classList.remove("active");
   document.getElementById("page2").classList.add("active");
 };
 
 document.getElementById("no").onclick=function(){
-  alert("Soch lo fir se 😢❤️");
+  alert("Arey soch lo fir se 😅❤️");
 };
 
 </script>
