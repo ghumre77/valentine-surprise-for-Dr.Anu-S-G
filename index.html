@@ -13,17 +13,16 @@ body{
   text-align:center;
 }
 
-/* Pages */
-.page{
+/* Hide only second page by default */
+#page2{
   display:none;
+}
+
+.container{
   height:100vh;
   display:flex;
   justify-content:center;
   align-items:center;
-}
-
-.active{
-  display:flex;
 }
 
 .card{
@@ -33,12 +32,6 @@ body{
   width:90%;
   max-width:360px;
   box-shadow:0 15px 35px rgba(0,0,0,0.15);
-  animation: pop 0.6s ease;
-}
-
-@keyframes pop{
-  from{transform:scale(0.8); opacity:0;}
-  to{transform:scale(1); opacity:1;}
 }
 
 h1{
@@ -58,7 +51,6 @@ button{
   font-size:16px;
   margin:10px;
   cursor:pointer;
-  transition:0.3s;
 }
 
 #yes{
@@ -66,15 +58,11 @@ button{
   color:white;
 }
 
-#yes:hover{
-  transform:scale(1.1);
-}
-
 #no{
   background:#eee;
 }
 
-/* Floating Hearts */
+/* Floating hearts */
 .heart{
   position:fixed;
   bottom:-20px;
@@ -92,7 +80,7 @@ button{
 <body>
 
 <!-- PAGE 1 -->
-<div id="page1" class="page active">
+<div id="page1" class="container">
   <div class="card">
     <h1>❤️ Dr. Anushka ❤️</h1>
     <h3>Will you be my forever Valentine? 💕</h3>
@@ -103,7 +91,7 @@ button{
 </div>
 
 <!-- PAGE 2 -->
-<div id="page2" class="page">
+<div id="page2" class="container">
   <div class="card">
     <h1>💖 Happy Valentine’s Day Baykoooo 💖</h1>
     <p>You are my heart, my happiness, my everything ❤️</p>
@@ -113,7 +101,7 @@ button{
 
 <script>
 
-/* Floating hearts continuously */
+/* Floating hearts */
 function createHeart(){
   const heart=document.createElement("div");
   heart.className="heart";
@@ -125,10 +113,10 @@ function createHeart(){
 }
 setInterval(createHeart,400);
 
-/* Buttons */
+/* Button logic */
 document.getElementById("yes").onclick=function(){
-  document.getElementById("page1").classList.remove("active");
-  document.getElementById("page2").classList.add("active");
+  document.getElementById("page1").style.display="none";
+  document.getElementById("page2").style.display="flex";
 };
 
 document.getElementById("no").onclick=function(){
