@@ -1,134 +1,139 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>For Dr. Anushka ❤️</title>
+<title>Dr. Anushka 💕</title>
 
 <style>
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #f8c8dc, #fbc2eb);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  overflow: hidden;
+body{
+margin:0;
+padding:0;
+font-family:Arial, sans-serif;
+background:linear-gradient(135deg,#ffd6e7,#ffc2d1);
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+overflow:hidden;
 }
 
-/* Card Style */
-.card {
-  background: white;
-  padding: 30px;
-  border-radius: 20px;
-  text-align: center;
-  width: 320px;
-  box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-  position: relative;
-  z-index: 2;
+.card{
+background:white;
+padding:30px;
+border-radius:25px;
+width:90%;
+max-width:400px;
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,0.2);
+animation:fadeIn 1s ease;
 }
 
-button {
-  padding: 10px 25px;
-  margin: 15px 10px 0 10px;
-  border: none;
-  border-radius: 25px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: 0.3s;
+h1{
+color:#ff2d75;
 }
 
-.yes {
-  background: hotpink;
-  color: white;
+button{
+padding:12px 25px;
+margin:10px;
+border:none;
+border-radius:30px;
+font-size:16px;
+cursor:pointer;
 }
 
-.yes:hover {
-  transform: scale(1.1);
+.yes{
+background:#ff2d75;
+color:white;
 }
 
-.no {
-  background: lightgray;
+.no{
+background:#ddd;
 }
 
-/* Second Page */
-#secondPage {
-  display: none;
-  text-align: center;
-  position: absolute;
-  z-index: 2;
+img{
+width:100%;
+border-radius:20px;
+margin-top:15px;
 }
 
-#secondPage img {
-  width: 280px;
-  border-radius: 20px;
-  margin-top: 15px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+.hidden{
+display:none;
 }
 
-#secondPage h1 {
-  background: white;
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+@keyframes fadeIn{
+from{opacity:0;transform:scale(0.9);}
+to{opacity:1;transform:scale(1);}
 }
 
-/* Floating Hearts */
-.heart {
-  position: absolute;
-  bottom: -20px;
-  font-size: 20px;
-  animation: floatUp 5s linear infinite;
-  opacity: 0.8;
+/* Floating hearts */
+.heart{
+position:absolute;
+color:#ff2d75;
+font-size:20px;
+animation:float 5s linear infinite;
 }
 
-@keyframes floatUp {
-  0% { transform: translateY(0); opacity: 1; }
-  100% { transform: translateY(-100vh); opacity: 0; }
+@keyframes float{
+0%{transform:translateY(0);opacity:1;}
+100%{transform:translateY(-100vh);opacity:0;}
 }
 </style>
 </head>
 
 <body>
 
-<!-- FIRST PAGE (NO PHOTO) -->
-<div class="card" id="firstPage">
-  <h2>Dr. Anushka 💕</h2>
-  <p>Do you like me? 🥺</p>
-  <button class="yes" onclick="showLove()">Yes 💖</button>
-  <button class="no">No 😢</button>
+<!-- FIRST PAGE -->
+<div class="card" id="page1">
+<h1>❤️ Dr. Anushka ❤️</h1>
+<h2>Will you be my Valentine? ✨</h2>
+
+<button class="yes" onclick="openSurprise()">Yes ✨</button>
+<button class="no">No 🥺</button>
+
+<p style="color:gray;margin-top:15px;">
+"Every moment with you feels like a dream come true..."
+</p>
 </div>
 
-<!-- SECOND PAGE (PHOTO HERE) -->
-<div id="secondPage">
-  <h1>Yayyyy ❤️<br>Happy Valentine’s Day Baykoooo 💕</h1>
-  <img src="photo1.jpg" alt="Our Photo">
+<!-- SECOND PAGE -->
+<div class="card hidden" id="page2">
+<h1>Happy Valentine's Day Baykoooo 💕</h1>
+
+<img src="photo1.jpg">
+
+<p style="margin-top:15px;">
+You are my favorite person in this whole world ❤️<br>
+Forever yours 💖
+</p>
 </div>
 
 <script>
-function showLove() {
-  document.getElementById("firstPage").style.display = "none";
-  document.getElementById("secondPage").style.display = "block";
-  startHearts();
+
+function openSurprise(){
+
+// hide first page
+document.getElementById("page1").classList.add("hidden");
+
+// show second page after small delay (gift opening feel)
+setTimeout(()=>{
+document.getElementById("page2").classList.remove("hidden");
+},800);
+
+// hearts explosion
+for(let i=0;i<30;i++){
+let heart=document.createElement("div");
+heart.innerHTML="💕";
+heart.classList.add("heart");
+heart.style.left=Math.random()*100+"vw";
+heart.style.fontSize=(Math.random()*20+15)+"px";
+heart.style.animationDuration=(Math.random()*3+2)+"s";
+document.body.appendChild(heart);
+
+setTimeout(()=>{heart.remove();},5000);
+}
 }
 
-function startHearts() {
-  setInterval(() => {
-    let heart = document.createElement("div");
-    heart.classList.add("heart");
-    heart.innerHTML = "💕";
-    heart.style.left = Math.random() * 100 + "vw";
-    heart.style.fontSize = (15 + Math.random() * 25) + "px";
-    document.body.appendChild(heart);
-
-    setTimeout(() => {
-      heart.remove();
-    }, 5000);
-
-  }, 300);
-}
 </script>
 
 </body>
